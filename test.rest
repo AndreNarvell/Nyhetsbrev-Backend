@@ -1,0 +1,23 @@
+GET http://localhost:5000/users
+
+###
+
+POST http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "email": "Bandi",
+    "password": "Bandi",
+    "subscription": false
+}
+
+###
+
+PUT http://localhost:5000/users
+Content-Type: application/json
+
+###
+
+DELETE http://localhost:5000/users
+Content-Type: application/json
+
