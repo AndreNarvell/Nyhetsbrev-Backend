@@ -1,14 +1,16 @@
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
+const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const logger = require("morgan");
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+const indexRouter = require("./routes/index");
+const usersRouter = require("./routes/users");
 const adminRouter = require("./routes/admin");
 const mongoose = require("mongoose");
 
-var app = express();
+const app = express();
+
+require("dotenv").config();
 
 // const MongoClient = require("mongodb").MongoClient;
 
@@ -23,9 +25,7 @@ var app = express();
 
 async function init() {
   try {
-    await mongoose.connect(
-      "mongodb+srv://admin:admin@cluster0.adak9.mongodb.net/users?retryWrites=true&w=majority"
-    );
+    await mongoose.connect(process.env.MONGOATLAS);
     console.log("Connected to database.");
   } catch (err) {
     console.error(err);

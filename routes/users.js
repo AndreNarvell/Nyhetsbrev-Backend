@@ -1,15 +1,16 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+// const cookieParser = require("cookie-parser");
+// router.use(cookieParser());
 const cors = require("cors");
-router.use(cors());
-const mongodb = require("mongodb");
-const mongoose = require("mongoose");
 const UserModel = require("../models/user-model");
+const cryptoJS = require("crypto-js");
+const nanoid = require("nanoid");
 
-const adminLogin = {
-  username: "admin",
-  password: "admin",
-};
+const router = express.Router();
+router.use(cors());
+// const mongodb = require("mongodb");
+// const mongoose = require("mongoose");
+require("dotenv").config();
 
 /* GET users listing. */
 router.get("/", async (req, res) => {
@@ -17,9 +18,61 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const user = new UserModel(req.body);
-  await user.save();
-  res.status(201).json(user);
+  try {
+    let user = {
+      userId: nanoid.nanoid(),
+      email: req.body.email,
+      password: cryptoJS.SHA256(req.body.password, process.env.SALT).toString(),
+      subscription: req.body.subscription,
+    };
+    const newUser = new UserModel(user);
+    await newUser.save();
+    res.status(201).json(user);
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.post("/login", async (req, res) => {
+  try {
+    const userFromDB =
+      (await UserModel.findOne({ email: req.body.email })) || "";
+
+    if (req.body.email != null && req.body.password != null) {
+      if (
+        userFromDB.password ===
+        cryptoJS.SHA256(req.body.password, process.env.SALT).toString()
+      ) {
+        console.log("Inloggad");
+        console.log(userFromDB.userId);
+        console.log(userFromDB.subscription);
+        res.json({
+          userPost: {
+            userId: userFromDB.userId,
+            subscription: userFromDB.subscription,
+          },
+        });
+      } else {
+        console.log("Fel användarnamn eller lösenord");
+        res.send("Failure");
+      }
+    }
+  } catch (err) {
+    console.error(err);
+  }
+});
+
+router.put("/change", (req, res) => {
+  try {
+    res.send(req.body);
+    UserModel.findOneAndUpdate(
+      { userId: req.body.userId },
+      { subscription: req.body.subscription },
+      () => {}
+    ); //only executes if callback is provided
+  } catch (err) {
+    console.error(err);
+  }
 });
 
 module.exports = router;

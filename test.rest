@@ -13,8 +13,13 @@ Content-Type: application/json
 
 ###
 
-PUT http://localhost:5000/users
+PUT http://localhost:5000/users/change
 Content-Type: application/json
+
+{
+    "userId" : "yaVGnVSo_sAh99TGPQ5dq",
+    "subscription": false
+}
 
 ###
 
