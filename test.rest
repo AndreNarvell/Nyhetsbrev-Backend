@@ -1,4 +1,4 @@
-GET http://localhost:5000/users
+GET http://localhost:5000/users/tdOvkefaskPc1XquPwEDz
 
 ###
 
@@ -9,6 +9,16 @@ Content-Type: application/json
     "email": "Bandi",
     "password": "Bandi",
     "subscription": false
+}
+
+###
+
+POST http://localhost:5000/users/login
+Content-Type: application/json
+
+{
+    "email": "true@true.com",
+    "password": "true"
 }
 
 ###

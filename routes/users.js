@@ -1,21 +1,30 @@
 const express = require("express");
-// const cookieParser = require("cookie-parser");
-// router.use(cookieParser());
 const cors = require("cors");
 const UserModel = require("../models/user-model");
 const cryptoJS = require("crypto-js");
 const nanoid = require("nanoid");
-
 const router = express.Router();
+
 router.use(cors());
-// const mongodb = require("mongodb");
-// const mongoose = require("mongoose");
+
 require("dotenv").config();
 
-/* GET users listing. */
-router.get("/", async (req, res) => {
-  res.send("Hello from GET");
-});
+// router.get("/:id", async (req, res) => {
+//   const singleUser = await UserModel.findById(req.params.id);
+//   if (req.session.loggedInUser) {
+//     res.json({
+//       userId: req.session.loggedInUser,
+//       user: {
+//         userId: singleUser.userId,
+//         email: singleUser.email,
+//         subscription: singleUser.subscription,
+//       },
+//     });
+//     console.log(req.session.loggedInUser);
+//   } else {
+//     res.json("No user logged in");
+//   }
+// });
 
 router.post("/", async (req, res) => {
   try {
@@ -43,6 +52,10 @@ router.post("/login", async (req, res) => {
         userFromDB.password ===
         cryptoJS.SHA256(req.body.password, process.env.SALT).toString()
       ) {
+        req.session.loggedInUser = {
+          userId: userFromDB.userId,
+          subscription: userFromDB.subscription,
+        };
         console.log("Inloggad");
         console.log(userFromDB.userId);
         console.log(userFromDB.subscription);
