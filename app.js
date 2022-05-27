@@ -34,7 +34,7 @@ app.use(
   cookieSession({
     secret: "secretKey",
     // maxAge: 1000 * 10,
-    maxAge: 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60,
     // sameSite: "none",
     // httpOnly: false,
     // secure: false,
