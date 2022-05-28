@@ -45,7 +45,7 @@ Password: admin
 
 (go to /admin to log in)
 
-[https://nyhetsbrev-front-end.vercel.app/](https://nyhetsbrev-back-end.azurewebsites.net/)
+https://nyhetsbrev-back-end.azurewebsites.net/
 
 
 
