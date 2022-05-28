@@ -9,7 +9,7 @@ router.use(cors());
 
 require("dotenv").config();
 
-// router.get("/:id", async (req, res) => {
+// router.get("/user", async (req, res) => {
 //   const singleUser = await UserModel.findById(req.params.id);
 //   if (req.session.loggedInUser) {
 //     res.json({
@@ -82,7 +82,7 @@ router.put("/change", (req, res) => {
       { userId: req.body.userId },
       { subscription: req.body.subscription },
       () => {}
-    ); //only executes if callback is provided
+    );
   } catch (err) {
     console.error(err);
   }
