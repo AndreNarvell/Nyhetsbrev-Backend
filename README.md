@@ -1,39 +1,51 @@
-# Nyhetsbrev-Frontend
+# Nyhetsbrev-Backend
 
 #### School assignment where a user can log in and change their subscription status and also see if they already are subscribed or not. The visitor can also create their own account and choose to subscribe to the newsletter or not, and then log in.
 ---
 
-#### Client: Next.js and Tailwind CSS. Deployed on Vercel
-#### Server: NodeJS and Express. Deployed on Azure
+#### Client: Next.js and Tailwind CSS. Deployed on Vercel (https://github.com/AndreNarvell/Nyhetsbrev-Frontend)
+#### Server: NodeJS and Express(with Express generator). Deployed on Azure
+#### Database: MongoDB atlas
 
 ---
 
 ### Run app:
 npm install <br>
-npm run dev
+npm start
 
 ---
 
 ### Added dependencies
-Axios for CRUD
+
+Cookie-session (not working atm)
+
+Cors
+
+Crypto-JS
+
+Dotenv
+
+Mongoose
+
+Nanoid
+
+Nodemon
 
 ---
 
-### Users
-A user that is not subscribed to the newsletter;
+### Admin login:
 
-Email: false@false.com <br>
-Password: false
+Username: admin <br>
+Password: admin
 
-A user that is subscribed to the newsletter;
-
-Email: true@true.com <br>
-Password: true
 
 ---
 
 ### Deploy
-https://nyhetsbrev-front-end.vercel.app/
+
+(go to /admin to log in)
+
+[https://nyhetsbrev-front-end.vercel.app/](https://nyhetsbrev-back-end.azurewebsites.net/)
 
 
 
