@@ -43,6 +43,7 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+  console.log("Try");
   try {
     const userFromDB =
       (await UserModel.findOne({ email: req.body.email })) || "";
@@ -52,10 +53,10 @@ router.post("/login", async (req, res) => {
         userFromDB.password ===
         cryptoJS.SHA256(req.body.password, process.env.SALT).toString()
       ) {
-        req.session.loggedInUser = {
-          userId: userFromDB.userId,
-          subscription: userFromDB.subscription,
-        };
+        // req.body.loggedInUser = {
+        //   userId: userFromDB.userId,
+        //   subscription: userFromDB.subscription,
+        // };
         console.log("Inloggad");
         console.log(userFromDB.userId);
         console.log(userFromDB.subscription);
@@ -65,14 +66,17 @@ router.post("/login", async (req, res) => {
             subscription: userFromDB.subscription,
           },
         });
+        return;
       } else {
         console.log("Fel användarnamn eller lösenord");
         res.send("Failure");
+        return;
       }
     }
   } catch (err) {
     console.error(err);
   }
+  return;
 });
 
 router.put("/change", (req, res) => {
